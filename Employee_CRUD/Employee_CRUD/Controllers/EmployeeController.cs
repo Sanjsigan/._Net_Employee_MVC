@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Employee_CRUD.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Employee_CRUD.Models;
+using System.Threading.Tasks;
 
 namespace Employee_CRUD.Controllers
 {
@@ -28,7 +24,10 @@ namespace Employee_CRUD.Controllers
         // GET: Employee/Create
         public IActionResult AddOrEdit(int id=0)
         {
-            return View(new Employee());
+            if (id == 0)
+                return View(new Employee());
+            else
+                return View(_context.Employees.Find(id));
         }
 
         // POST: Employee/Create
@@ -40,7 +39,10 @@ namespace Employee_CRUD.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                if (employee.EmployeeId == 0)
+                    _context.Add(employee);
+                else
+                    _context.Update(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -52,19 +54,11 @@ namespace Employee_CRUD.Controllers
         // GET: Employee/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var employee = await _context.Employees.FindAsync(id);
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            return View(employee);
         }
 
     }

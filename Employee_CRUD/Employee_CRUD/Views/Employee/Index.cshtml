@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h4>Employee Register</h4>
 
-<p>
-    <a asp-action="AddOrEdit">Create New</a>
+<hr />
+
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -24,7 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.OfficeLocation)
             </th>
-            <th></th>
+            <th>
+                <a asp-action="AddOrEdit" class="btn btn-outline-success"><i class="fa fa-angellist"></i> Employee</a>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -43,11 +45,12 @@
                 @Html.DisplayFor(modelItem => item.OfficeLocation)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+                <a asp-action="AddOrEdit" asp-route-id="@item.EmployeeId"><i class="fa fa-pencil" style="font-size:24px"></i></a> |
+      
+                <a asp-action="Delete" asp-route-id="@item.EmployeeId" class="text-danger " onclick="return confirm ('are you sure want to delete')"><i class="fa fa-trash"style="font-size:24px"></i></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+ 
