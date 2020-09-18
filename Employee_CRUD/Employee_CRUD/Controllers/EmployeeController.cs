@@ -24,23 +24,6 @@ namespace Employee_CRUD.Controllers
             return View(await _context.Employees.ToListAsync());
         }
 
-        // GET: Employee/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            return View(employee);
-        }
 
         // GET: Employee/Create
         public IActionResult AddOrEdit(int id=0)
