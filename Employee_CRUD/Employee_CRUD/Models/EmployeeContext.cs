@@ -12,5 +12,9 @@ namespace Employee_CRUD.Models
         {
 
         }
+
+        public DbSet<Employee> Employees { get; set; }
+       
+
     }
 }
